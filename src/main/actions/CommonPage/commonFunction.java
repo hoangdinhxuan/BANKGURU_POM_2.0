@@ -59,8 +59,7 @@ public class commonFunction extends BasicPage {
 		driver.navigate().refresh();
 	}
 
-	public void click(String locator) {
-		WebElement element = driver.findElement(By.xpath(locator));
+	public void click(WebElement element) {
 		element.click();
 	}
 
@@ -71,8 +70,7 @@ public class commonFunction extends BasicPage {
 		js.executeScript("arguments[0].click();", account);
 	}
 
-	public String getText(String locator) {
-		WebElement element = driver.findElement(By.xpath(locator));
+	public String getText(WebElement element) {
 		return element.getText();
 
 	}
@@ -82,9 +80,21 @@ public class commonFunction extends BasicPage {
 		element.clear();
 	}
 
-	public void input(String locator, String value) {
-		WebElement element = driver.findElement(By.xpath(locator));
+	public void input(WebElement element, String value) {
 		element.sendKeys(value);
+	}
+
+	public String getTextDynamic(String value) {
+		String dynamicLocator = String.format("//*[text()='%s']", value);
+		WebElement element = driver.findElement(By.xpath(dynamicLocator));
+		return element.getText();
+	}
+
+	public void waitVisibleDynamic(String value) {
+		WebDriverWait wait = new WebDriverWait(driver, timeouts);
+		String dynamicLocator = String.format("//*[text()='%s']", value);
+		WebElement element = driver.findElement(By.xpath(dynamicLocator));
+		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 
 //	Excercise2:
@@ -217,8 +227,7 @@ public class commonFunction extends BasicPage {
 		dragAndDrop.perform();
 	}
 
-	public void inputKeys(String locator, Keys key) {
-		WebElement element = driver.findElement(By.xpath(locator));
+	public void inputKeys(WebElement element, Keys key) {
 		element.sendKeys(key);
 	}
 
@@ -282,9 +291,9 @@ public class commonFunction extends BasicPage {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
 	}
 
-	public void waitVisible(String locator) {
+	public void waitVisible(WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, timeouts);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 
 	public void waitAlertPresence(WebDriver driver) {

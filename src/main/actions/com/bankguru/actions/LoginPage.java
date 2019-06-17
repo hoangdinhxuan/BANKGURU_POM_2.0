@@ -1,9 +1,9 @@
 package com.bankguru.actions;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import com.bankguru.ui.LoginPageUI;
 
 import CommonPage.commonFunction;
 
@@ -13,26 +13,47 @@ public class LoginPage extends commonFunction {
 		super(driver);
 	}
 
+	@FindBy(linkText = "here")
+	WebElement HERE_LINK;
+
+	@FindBy(name = "uid")
+	WebElement USERNAME_LOGIN_TXT;
+
+	@FindBy(name = "password")
+	WebElement PASSWORD_LOGIN_TXT;
+
+	@FindBy(name = "LOGIN")
+	WebElement LOGIN_BTN;
+
+	@FindBy(name = "RESET")
+	WebElement RESET_BTN;
+
+//	public static final String HERE_LINK = "//a[contains(text(),'here')]";
+//	public static final String USERNAME_LOGIN_TXT = "//input[@name='uid']";
+//	public static final String PASSWORD_LOGIN_TXT = "//input[@name='password']";
+//	public static final String LOGIN_BTN = "//input[@value='LOGIN']";
+//	public static final String RESET_BTN = "//input[@value='RESET']";
+
 	public RegisterPage clickHereLink() {
-		waitVisible(LoginPageUI.HERE_LINK);
-		click(LoginPageUI.HERE_LINK);
+		waitVisible(HERE_LINK);
+		click(HERE_LINK);
 		return PageFactory.initElements(driver, RegisterPage.class);
 	}
 
 	public void iputUsename(String value) {
-		waitVisible(LoginPageUI.USERNAME_LOGIN_TXT);
-		input(LoginPageUI.USERNAME_LOGIN_TXT, value);
+		waitVisible(USERNAME_LOGIN_TXT);
+		input(USERNAME_LOGIN_TXT, value);
 
 	}
 
 	public void iputPassword(String value) {
-		waitVisible(LoginPageUI.PASSWORD_LOGIN_TXT);
-		input(LoginPageUI.PASSWORD_LOGIN_TXT, value);
+		waitVisible(PASSWORD_LOGIN_TXT);
+		input(PASSWORD_LOGIN_TXT, value);
 	}
 
 	public HomePage clickLogin() {
-		waitVisible(LoginPageUI.LOGIN_BTN);
-		click(LoginPageUI.LOGIN_BTN);
+		waitVisible(LOGIN_BTN);
+		click(LOGIN_BTN);
 		return PageFactory.initElements(driver, HomePage.class);
 	}
 }

@@ -1,9 +1,9 @@
 package com.bankguru.actions;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import com.bankguru.ui.HomePageUI;
 
 import CommonPage.commonFunction;
 
@@ -13,22 +13,35 @@ public class HomePage extends commonFunction {
 		super(driver);
 	}
 
+//	public static final String NEWCUSTOMER_LINK = "//a[contains(text(),'New Customer')]";
+//	public static final String WELCOME_LBL = "//marquee[@class='heading3']";
+//	public static final String EDITCUSTOMER_LINK = "//a[contains(text(),'Edit Customer')]";
+
+	@FindBy(linkText = "New Customer")
+	WebElement NEWCUSTOMER_LINK;
+
+	@FindBy(name = "heading3")
+	WebElement WELCOME_LBL;
+	
+	@FindBy(linkText = "Edit Customer")
+	WebElement EDITCUSTOMER_LINK;
+
 	public String getWelcomString() {
-		waitVisible(HomePageUI.WELCOME_LBL);
-		return getText(HomePageUI.WELCOME_LBL);
+		waitVisible(WELCOME_LBL);
+		return getText(WELCOME_LBL);
 
 	}
 
 	public NewCustormer clickMenuNewCustomer() {
-		waitVisible(HomePageUI.NEWCUSTOMER_LINK);
-		click(HomePageUI.NEWCUSTOMER_LINK);
+		waitVisible(NEWCUSTOMER_LINK);
+		click(NEWCUSTOMER_LINK);
 		return PageFactory.initElements(driver, NewCustormer.class);
 
 	}
 
 	public EditCustomer clickMenuEditCustomer() {
-		waitVisible(HomePageUI.EDITCUSTOMER_LINK);
-		click(HomePageUI.EDITCUSTOMER_LINK);
+		waitVisible(EDITCUSTOMER_LINK);
+		click(EDITCUSTOMER_LINK);
 		return PageFactory.initElements(driver, EditCustomer.class);
 
 	}
